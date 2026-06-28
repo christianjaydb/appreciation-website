@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appreciation Post</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --steel: #1a1e2e;
+    --navy: #0d1117;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --silver: #8a9bb0;
+    --white: #f0f4f8;
+    --card-bg: rgba(20, 26, 40, 0.85);
+    --radius-card: 18px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #0d1117 0%, #1a1e2e 35%, #0f1923 60%, #0d1117 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(30,50,80,0.3) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    text-align: center;
+    padding: 80px 20px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-eyebrow {
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  header h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1.05;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  header h1 span {
+    color: var(--gold);
+    display: block;
+  }
+
+  .header-divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 24px auto;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .header-sub {
+    font-size: 15px;
+    color: var(--silver);
+    font-weight: 300;
+    letter-spacing: 1px;
+    max-width: 420px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 20px 20px 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .post-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: var(--radius-card);
+    margin-bottom: 36px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 1px 0 rgba(201,168,76,0.12) inset;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.65s ease, transform 0.65s ease, box-shadow 0.3s ease;
+  }
+
+  .post-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .post-card:hover {
+    box-shadow: 0 16px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.3), 0 1px 0 rgba(201,168,76,0.15) inset;
+  }
+
+  /* badge centered at top */
+  .card-badge-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .card-badge {
+    font-size: 12px;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 2px;
+    color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 6px 18px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+
+  .slideshow-wrap {
+    position: relative;
+    background: #0a0d14;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+  }
+
+  @media (max-width: 480px) {
+    .slideshow-wrap { aspect-ratio: 4/3; }
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+
+  .slide.active { opacity: 1; }
+
+  .slide-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1c2235 0%, #0f1520 50%, #1a2030 100%);
+  }
+
+  .slide-placeholder .upload-icon {
+    position: relative;
+    z-index: 1;
+    width: 52px;
+    height: 52px;
+    opacity: 0.35;
+  }
+
+  .slide-placeholder .upload-label {
+    position: relative;
+    z-index: 1;
+    font-size: 13px;
+    color: var(--silver);
+    opacity: 0.6;
+    text-align: center;
+    font-weight: 300;
+  }
+
+  .slide-placeholder img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .slide-placeholder img.loaded { opacity: 1; }
+
+  .slide-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold-light);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    backdrop-filter: blur(4px);
+  }
+
+  .slide-btn:hover {
+    background: rgba(201,168,76,0.2);
+    border-color: rgba(201,168,76,0.6);
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  .slide-btn.prev { left: 10px; }
+  .slide-btn.next { right: 10px; }
+
+  .slide-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* dots centered at bottom */
+  .dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 5;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+    padding: 0;
+  }
+
+  .dot.active {
+    background: var(--gold);
+    transform: scale(1.3);
+  }
+
+  .file-input-overlay {
+    display: none; /* hidden; triggered programmatically per empty slot */
+  }
+
+  /* clickable upload area only on empty placeholder slots */
+  .slide-placeholder.empty {
+    cursor: pointer;
+  }
+
+  .slide-placeholder.empty:hover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(201,168,76,0.06);
+    pointer-events: none;
+  }
+
+  /* caption area — no label, no actions */
+  .caption-area {
+    padding: 20px 22px 22px;
+  }
+
+  .caption-text {
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(240,244,248,0.85);
+    font-weight: 300;
+    outline: none;
+    cursor: text;
+    min-height: 44px;
+  }
+
+  .caption-text:empty::before {
+    content: attr(data-placeholder);
+    color: var(--silver);
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3), transparent);
+    margin: 0 auto 16px;
+  }
+
+  .footer-text {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--silver);
+    opacity: 0.4;
+    font-family: 'Oswald', sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="header-eyebrow">‎I would like to express my deepest gratitude:</p>
+  <div class="header-divider"></div>
+	<p class="header-sub">
+	To my parents, for their relentless efforts and sacrifices to provide.
+	</p>
+
+	<br>
+
+	<p class="header-sub">
+	To my tita Tita, for the laptop that helped me get through college.
+	</p>
+
+	<br>
+
+	<p class="header-sub">
+	To my ate Bea, for the semestral allowance and support.
+	</p>
+
+	<br>
+
+	<p class="header-sub">
+	To my family, friends, instructors/mentors, OJT supervisors/colleagues, and alma mater, for making my college life bearable and full of wisdom.
+	</p>
+
+	<br>
+
+	<p class="header-sub">
+	Lastly, to the legislators and taxpayers who made free access to education possible.
+	</p>
+		
+	<br>
+
+	<p class="header-sub">
+	Rest assured that I will pay it forward.
+	</p>
+  
+</header>
+
+<main id="cards-container"></main>
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+//  HOW TO ADD YOUR OWN PHOTOS
+//  Put your image files in the SAME folder as this HTML file, then
+//  list the filenames inside the "photos" array for each card.
+//  Empty string "" = tap-to-upload placeholder slot.
+// ─────────────────────────────────────────────────────────────────
+const postsData = [
+  {
+    badge: 'Student Council Family',
+    photos: ['sets.jpeg', 'acets.jpeg'],
+    caption: 'Grateful to be part of SETS and ACETS, thank you sa tiwala',
+  },
+  {
+    badge: 'TTEC Family',
+    photos: ['ttec.jpeg'],
+    caption: 'Most memorable OJT Exp. super babait',
+  },
+  {
+    badge: 'TESDA PTC Family',
+    photos: ['tesda.jpeg', 'marie1.jpg', 'marie2.jpg'],
+    caption: 'Daming ganap dito HAHAHAHAHAHA',
+  },
+  {
+    badge: 'Belen & Friends',
+    photos: ['group1.jpg', 'group.jpg', 'group2.jpg', 'group3.jpg', 'mau.jpg', 'celeste.jpg', 'kholyn.jpg'],
+    caption: "Basta pag sinabing kasama ang Belen & Friends 'to na yun LOL",
+  },
+];
+
+// Shared hidden file input — reused for each empty slot click
+const sharedInput = document.createElement('input');
+sharedInput.type = 'file';
+sharedInput.accept = 'image/*';
+sharedInput.style.display = 'none';
+document.body.appendChild(sharedInput);
+
+function fillSlot(placeholder, file) {
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    let img = placeholder.querySelector('img');
+    if (!img) {
+      img = document.createElement('img');
+      img.alt = 'Uploaded photo';
+      placeholder.appendChild(img);
+    }
+    img.src = ev.target.result;
+    img.onload = () => img.classList.add('loaded');
+    const icon = placeholder.querySelector('.upload-icon');
+    const label = placeholder.querySelector('.upload-label');
+    if (icon) icon.style.display = 'none';
+    if (label) label.style.display = 'none';
+    placeholder.classList.remove('empty');
+    placeholder.style.cursor = 'default';
+  };
+  reader.readAsDataURL(file);
+}
+
+function buildCard(post, index) {
+  const card = document.createElement('article');
+  card.className = 'post-card';
+  card.style.transitionDelay = `${index * 0.05}s`;
+
+  const numSlides = post.photos.length;
+
+  const slidesHTML = post.photos.map((filename, i) => {
+    if (filename && filename.trim() !== '') {
+      return `
+        <div class="slide${i === 0 ? ' active' : ''}" data-index="${i}">
+          <div class="slide-placeholder">
+            <img src="${filename.trim()}" alt="Photo ${i + 1}" class="loaded">
+          </div>
+        </div>`;
+    }
+    return `
+      <div class="slide${i === 0 ? ' active' : ''}" data-index="${i}">
+        <div class="slide-placeholder empty">
+          <svg class="upload-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="12" width="40" height="30" rx="4" stroke="#8a9bb0" stroke-width="1.5"/>
+            <circle cx="18" cy="22" r="4" stroke="#8a9bb0" stroke-width="1.5"/>
+            <path d="M6 34 l10-10 8 8 6-6 16 14" stroke="#8a9bb0" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <span class="upload-label">Tap to add photo</span>
+        </div>
+      </div>`;
+  }).join('');
+
+  const dotsHTML = Array.from({ length: numSlides }, (_, i) =>
+    `<button class="dot${i === 0 ? ' active' : ''}" data-dot="${i}" aria-label="Slide ${i+1}"></button>`
+  ).join('');
+
+  card.innerHTML = `
+    <div class="card-badge-wrap">
+      <span class="card-badge">${post.badge}</span>
+    </div>
+    <div class="slideshow-wrap">
+      ${slidesHTML}
+      ${numSlides > 1 ? `
+      <button class="slide-btn prev" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="slide-btn next" aria-label="Next">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="dots">${dotsHTML}</div>
+      ` : ''}
+    </div>
+    <div class="caption-area">
+      <div class="caption-text" contenteditable="true" data-placeholder="Write something meaningful...">${post.caption}</div>
+    </div>
+  `;
+
+  // Attach click-to-upload on each empty slot individually (does NOT block nav buttons)
+  card.querySelectorAll('.slide-placeholder.empty').forEach(placeholder => {
+    placeholder.addEventListener('click', () => {
+      sharedInput.onchange = (e) => {
+        if (e.target.files[0]) fillSlot(placeholder, e.target.files[0]);
+        sharedInput.value = '';
+      };
+      sharedInput.click();
+    });
+  });
+
+  return card;
+}
+
+function initSlideshow(card, numSlides) {
+  if (numSlides <= 1) return;
+  const slides = card.querySelectorAll('.slide');
+  const dots = card.querySelectorAll('.dot');
+  const wrap = card.querySelector('.slideshow-wrap');
+  let current = 0;
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + numSlides) % numSlides;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  card.querySelector('.slide-btn.prev').addEventListener('click', () => goTo(current - 1));
+  card.querySelector('.slide-btn.next').addEventListener('click', () => goTo(current + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  // Touch + mouse swipe support
+  let startX = 0;
+  let startY = 0;
+  let isDragging = false;
+  let isHorizontal = false;
+
+  function onDragStart(x, y) {
+    startX = x;
+    startY = y;
+    isDragging = true;
+    isHorizontal = false;
+    wrap.style.cursor = 'grabbing';
+  }
+
+  function onDragMove(x, y) {
+    if (!isDragging) return;
+    const dx = x - startX;
+    const dy = y - startY;
+    if (!isHorizontal && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+      isHorizontal = true;
+    }
+  }
+
+  function onDragEnd(x) {
+    if (!isDragging) return;
+    isDragging = false;
+    wrap.style.cursor = 'grab';
+    const dx = x - startX;
+    if (isHorizontal && Math.abs(dx) > 40) {
+      goTo(dx < 0 ? current + 1 : current - 1);
+    }
+    isHorizontal = false;
+  }
+
+  // Mouse events
+  wrap.addEventListener('mousedown', (e) => { e.preventDefault(); onDragStart(e.clientX, e.clientY); });
+  window.addEventListener('mousemove', (e) => { if (isDragging) onDragMove(e.clientX, e.clientY); });
+  window.addEventListener('mouseup', (e) => { if (isDragging) onDragEnd(e.clientX); });
+
+  // Touch events
+  wrap.addEventListener('touchstart', (e) => {
+    onDragStart(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+
+  wrap.addEventListener('touchmove', (e) => {
+    onDragMove(e.touches[0].clientX, e.touches[0].clientY);
+    if (isHorizontal) e.preventDefault();
+  }, { passive: false });
+
+  wrap.addEventListener('touchend', (e) => {
+    onDragEnd(e.changedTouches[0].clientX);
+  }, { passive: true });
+
+  wrap.style.cursor = 'grab';
+}
+
+const container = document.getElementById('cards-container');
+postsData.forEach((post, i) => {
+  const card = buildCard(post, i);
+  container.appendChild(card);
+  initSlideshow(card, post.photos.length);
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.post-card').forEach(c => observer.observe(c));
+</script>
+</body>
+</html>
