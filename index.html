@@ -225,9 +225,9 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 5;
-    background: rgba(13,17,23,0.45);
-    border: 1.5px solid rgba(232,201,122,0.6);
-    color: var(--gold-light);
+    background: rgba(13,17,23,0.55);
+    border: 1.5px solid #ffd97a;
+    color: #ffd97a;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -235,17 +235,18 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    opacity: 0.55;
+    opacity: 0.9;
     transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s, opacity 0.2s;
     backdrop-filter: blur(3px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    box-shadow: 0 0 10px rgba(255,217,122,0.45), 0 2px 8px rgba(0,0,0,0.5);
   }
 
   .slide-btn:hover {
-    background: rgba(201,168,76,0.3);
-    border-color: var(--gold-light);
-    color: var(--gold-light);
+    background: rgba(201,168,76,0.35);
+    border-color: #ffe6a3;
+    color: #ffe6a3;
     opacity: 1;
+    box-shadow: 0 0 14px rgba(255,217,122,0.7), 0 2px 8px rgba(0,0,0,0.5);
     transform: translateY(-50%) scale(1.1);
   }
 
