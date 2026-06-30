@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Appreciation Post</title>
+<title>Appreciation Wall</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -23,7 +23,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #0d1117 0%, #1a1e2e 35%, #0f1923 60%, #0d1117 100%);
     background-attachment: fixed;
     min-height: 100vh;
@@ -50,7 +50,7 @@
   }
 
   .header-eyebrow {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 18px;
     letter-spacing: 3px;
     color: var(--gold);
@@ -61,7 +61,7 @@
   }
 
   header h1 {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: clamp(2.8rem, 7vw, 5.5rem);
     font-weight: 700;
     letter-spacing: 2px;
@@ -88,7 +88,7 @@
 
   .header-sub {
     font-size: 15px;
-    color: var(--silver);
+    color: var(--white);
     font-weight: 300;
     letter-spacing: 1px;
     max-width: 420px;
@@ -138,7 +138,7 @@
 
   .card-badge {
     font-size: 12px;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 2px;
     color: var(--gold);
     background: rgba(201,168,76,0.1);
@@ -225,24 +225,26 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 5;
-    background: rgba(0,0,0,0.45);
-    border: 1px solid rgba(201,168,76,0.25);
-    color: var(--gold-light);
-    width: 36px;
-    height: 36px;
+    background: rgba(0,0,0,0.6);
+    border: 1.5px solid rgba(255,255,255,0.85);
+    color: #ffffff;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
     backdrop-filter: blur(4px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
   }
 
   .slide-btn:hover {
-    background: rgba(201,168,76,0.2);
-    border-color: rgba(201,168,76,0.6);
-    transform: translateY(-50%) scale(1.08);
+    background: rgba(0,0,0,0.8);
+    border-color: var(--gold-light);
+    color: var(--gold-light);
+    transform: translateY(-50%) scale(1.1);
   }
 
   .slide-btn.prev { left: 10px; }
@@ -265,11 +267,12 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(0,0,0,0.4);
     cursor: pointer;
     transition: background 0.2s, transform 0.2s;
-    border: none;
     padding: 0;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
   }
 
   .dot.active {
@@ -304,8 +307,6 @@
     line-height: 1.75;
     color: rgba(240,244,248,0.85);
     font-weight: 300;
-    outline: none;
-    cursor: text;
     min-height: 44px;
   }
 
@@ -341,7 +342,62 @@
     text-transform: uppercase;
     color: var(--silver);
     opacity: 0.4;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .back-to-top {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(20,26,40,0.9);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 50;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease, border-color 0.2s ease, visibility 0.3s;
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .back-to-top:hover {
+    background: rgba(201,168,76,0.18);
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .back-to-top svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @media (max-width: 480px) {
+    .back-to-top {
+      bottom: 18px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
+    }
   }
 </style>
 </head>
@@ -387,6 +443,10 @@
 </header>
 
 <main id="cards-container"></main>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
 
 <script>
 // ─────────────────────────────────────────────────────────────────
@@ -496,7 +556,7 @@ function buildCard(post, index) {
       ` : ''}
     </div>
     <div class="caption-area">
-      <div class="caption-text" contenteditable="true" data-placeholder="Write something meaningful...">${post.caption}</div>
+      <div class="caption-text">${post.caption}</div>
     </div>
   `;
 
@@ -606,6 +666,33 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.post-card').forEach(c => observer.observe(c));
+
+// Back to top button
+const backToTopBtn = document.getElementById('backToTop');
+
+function toggleBackToTop() {
+  const scrollY = window.scrollY || document.documentElement.scrollTop;
+  const nearBottom = window.innerHeight + scrollY >= document.documentElement.scrollHeight - 200;
+  if (nearBottom) {
+    backToTopBtn.classList.add('visible');
+  } else {
+    backToTopBtn.classList.remove('visible');
+  }
+}
+
+window.addEventListener('scroll', toggleBackToTop, { passive: true });
+toggleBackToTop();
+
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 </script>
+
+<!-- Vercel Analytics: tracks visitors & page views -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 </html>
