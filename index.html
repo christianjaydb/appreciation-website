@@ -158,7 +158,10 @@
     text-transform: none;
     margin-bottom: 16px;
     opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  body.content-ready .header-eyebrow {
+    animation: fadeUp 0.8s ease forwards 0.1s;
   }
 
   header h1 {
@@ -170,7 +173,10 @@
     line-height: 1.05;
     color: var(--white);
     opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  body.content-ready header h1 {
+    animation: fadeUp 0.8s ease forwards 0.3s;
   }
 
   header h1 span {
@@ -182,7 +188,10 @@
     width: min(320px, 70%);
     margin: 24px auto;
     opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  body.content-ready .header-divider {
+    animation: fadeUp 0.8s ease forwards 0.5s;
   }
 
   .header-divider svg {
@@ -200,7 +209,10 @@
     max-width: 420px;
     margin: 0 auto;
     opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  body.content-ready .header-sub {
+    animation: fadeUp 0.8s ease forwards 0.7s;
   }
 
   .header-sub em {
@@ -824,8 +836,6 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.post-card').forEach(c => observer.observe(c));
-
 // Page loader
 (function () {
   const loader = document.getElementById('pageLoader');
@@ -833,11 +843,19 @@ document.querySelectorAll('.post-card').forEach(c => observer.observe(c));
   const MIN_VISIBLE = 2600; // ms, so the loader doesn't just flash
   const start = Date.now();
 
+  function revealContent() {
+    // Kick off the header entrance animations and start watching
+    // cards for scroll-in reveals only once the loader is gone.
+    document.body.classList.add('content-ready');
+    document.querySelectorAll('.post-card').forEach(c => observer.observe(c));
+  }
+
   function hideLoader() {
     const elapsed = Date.now() - start;
     const wait = Math.max(0, MIN_VISIBLE - elapsed);
     setTimeout(() => {
       loader.classList.add('loader-hidden');
+      revealContent();
       setTimeout(() => loader.remove(), 650);
     }, wait);
   }
