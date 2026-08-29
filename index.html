@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="is-loading">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +21,11 @@
   }
 
   html { scroll-behavior: smooth; }
+
+  html.is-loading, html.is-loading body {
+    overflow: hidden !important;
+    height: 100%;
+  }
 
   #pageLoader {
     position: fixed;
@@ -857,6 +862,7 @@ const observer = new IntersectionObserver((entries) => {
     const wait = Math.max(0, MIN_VISIBLE - elapsed);
     setTimeout(() => {
       loader.classList.add('loader-hidden');
+      document.documentElement.classList.remove('is-loading');
       revealContent();
       setTimeout(() => loader.remove(), 650);
     }, wait);
