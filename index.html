@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" class="is-loading">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appreciation Wall</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+<div id="pageLoader" aria-hidden="true">
+  <div class="loader-cap-wrap">
+    <div class="loader-cap-stage">
+      <div class="loader-cap-shadow"></div>
+      <svg class="loader-cap" viewBox="0 0 200 136" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="capGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--gold-light)"/>
+            <stop offset="100%" stop-color="var(--gold)"/>
+          </linearGradient>
+          <linearGradient id="capGradSoft" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--gold)"/>
+            <stop offset="100%" stop-color="#a9843a"/>
+          </linearGradient>
+        </defs>
+        <!-- Mortarboard top -->
+        <polygon points="100,8 193,48 100,88 7,48" fill="url(#capGrad)"/>
+        <!-- Underside of board -->
+        <path d="M38,56 L38,84 C38,96 65,106 100,106 C135,106 162,96 162,84 L162,56 L100,76 Z" fill="url(#capGradSoft)"/>
+        <!-- Button on top -->
+        <circle cx="100" cy="48" r="5" fill="var(--gold-light)"/>
+        <!-- Tassel cord -->
+        <path d="M100,48 L146,63 L146,96" fill="none" stroke="var(--gold-light)" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Tassel tail -->
+        <path d="M146,96 C142,96 139,100 139,105 C139,113 146,122 146,122 C146,122 153,113 153,105 C153,100 150,96 146,96 Z" fill="var(--gold-light)"/>
+      </svg>
+    </div>
+    <div class="loader-progress"></div>
+  </div>
+</div>
+
+<header>
+	<p class="header-eyebrow">
+    ‎I would like to express my deepest gratitude:
+	</p>
+  <div class="header-divider">
+    <svg viewBox="0 0 750 70" xmlns="http://www.w3.org/2000/svg">
+      <g id="dividerLeft">
+        <polygon points="0,35 15,27 30,35 15,43" fill="var(--gold)"/>
+        <line x1="30" y1="35" x2="260" y2="35" stroke="var(--gold)" stroke-width="2.2"/>
+        <path d="M260,35 C274,18 298,14 320,19 C338,23 355,27 373,33
+                 C355,30 340,32 320,29 C299,26 276,27 260,35 Z" fill="var(--gold)"/>
+        <path d="M268,38 C276,45 284,42 282,35 C280,30 273,30 271,34" fill="none" stroke="var(--gold)" stroke-width="1.4" stroke-linecap="round"/>
+      </g>
+      <use href="#dividerLeft" transform="translate(750,0) scale(-1,1)"/>
+      <path d="M375,44 L378,50 L375,56 L372,50 Z" fill="var(--gold-light)"/>
+    </svg>
+  </div>
+	<p class="header-sub">
+	To my <em>parents</em>, for their relentless efforts and sacrifices to provide.
+	</p>
+
+	<br>
+
+	<p class="header-sub">
+	To my <em>Ate Bea</em>, for the semestral allowance and support.
+	</p>
+
+	<br>
+
+	<p class="header-sub">
+	To my <em>Tita Tita</em> and <em>Ate Klarisse</em>, for the laptop and support that helped me get through college.
+	</p>
+
+	<br>
+
+	<p class="header-sub">
+	To my <em>family, friends, instructors/mentors, OJT supervisors/colleagues</em>, and <em>alma mater</em>, for making my college life bearable and full of wisdom.
+	</p>
+
+	<br>
+
+	<p class="header-sub">
+	Lastly, to the <em>legislators</em> and <em>taxpayers</em> who made Republic Act No. 10931 possible.
+	</p>
+		
+	<br>
+
+	<p class="header-sub">
+	This wouldn't be this without you.
+	</p>
+  
+</header>
+
+<main id="cards-container"></main>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<!-- Vercel Analytics: tracks visitors & page views -->
+
+<script src="script.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
