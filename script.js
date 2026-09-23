@@ -22,7 +22,7 @@ const postsData = [
   },
   {
     badge: 'Belen & Friends',
-    photos: [ 'src/grad.JPG', 'src/gradd.JPG', 'src/group1.jpg', 'src/group.jpg', 'src/group2.jpg', 'src/group3.jpg', 'src/mau.jpg', 'src/celeste.jpg', 'src/kholyn.jpg'],
+    photos: [ 'src/grad.JPG', 'src/gradd.JPG', 'src/group.jpg', 'src/group2.jpg', 'src/group3.jpg', 'src/mau.jpg', 'src/celeste.jpg', 'src/kholyn.jpg'],
     caption: "Basta pag sinabing kasama ang Belen & Friends 'to na yun LOL",
   },
 ];
