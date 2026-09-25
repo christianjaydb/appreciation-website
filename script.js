@@ -252,7 +252,8 @@ const backToTopBtn = document.getElementById('backToTop');
 function toggleBackToTop() {
   const scrollY = window.scrollY || document.documentElement.scrollTop;
   const nearBottom = window.innerHeight + scrollY >= document.documentElement.scrollHeight - 200;
-  if (nearBottom) {
+  const hasScrolled = scrollY > 100;
+  if (nearBottom && hasScrolled) {
     backToTopBtn.classList.add('visible');
   } else {
     backToTopBtn.classList.remove('visible');
